@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 827460508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -235,6 +235,13 @@ MonoBehaviour:
   deckXML: {fileID: 4900000, guid: c76312a0fb08948699e1abf935e4a957, type: 3}
   layout: {fileID: 0}
   layoutXML: {fileID: 4900000, guid: 61f3f05951a2f4d98b35bddbc7549908, type: 3}
+  layoutCenter: {x: 0, y: 0, z: 0}
+  xOffset: 3
+  yOffset: -2.5
+  layoutAnchor: {fileID: 0}
+  target: {fileID: 0}
+  tableau: []
+  discardPile: []
   drawPile: []
 --- !u!114 &827460516
 MonoBehaviour:
@@ -254,7 +261,7 @@ MonoBehaviour:
   drawPile:
     x: 0
     y: 0
-    faceup: 0
+    faceUp: 0
     layerName: Default
     layerID: 0
     id: 0
@@ -264,7 +271,7 @@ MonoBehaviour:
   discardPile:
     x: 0
     y: 0
-    faceup: 0
+    faceUp: 0
     layerName: Default
     layerID: 0
     id: 0

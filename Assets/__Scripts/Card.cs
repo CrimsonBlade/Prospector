@@ -15,6 +15,11 @@ public class Card : MonoBehaviour {
 	public GameObject back;     // back of card;
 	public CardDefinition def;  // from DeckXML.xml		
 
+	public SpriteRenderer[]  spriteRenderers;
+
+	void Start(){
+		SetSortOrder (0);
+	}
 	
 	// property
 	public bool faceUp {
@@ -24,7 +29,23 @@ public class Card : MonoBehaviour {
 		set {
 			back.SetActive(!value);
 		}
-	}	
+	}
+
+	public void PopulateSpriteRenderers(){
+		if (spriteRenderers == null || spriteRenderers.Length == 0) {
+			spriteRenderers = GetComponentInChildren<SpriteRenderer>();		
+		}
+	}
+
+	public void SetSortingLayerName(string tSLN){
+		PopulateSpriteRenderers ();
+
+		foreach (SpriteRenderer tSR in spriteRenderers) {
+			tSR.sortingLayerName = tSLN;		
+		}
+	}
+	//!!!!!!!!!!!! start here !!!!!!!!!
+
 } // class Card
 
 [System.Serializable]
