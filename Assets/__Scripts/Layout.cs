@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class SlotDef{
 	public float 	 x;
 	public float 	 y;
-	public bool  	 faceup = false;
+	public bool  	 faceUp = false;
 	public string    layerName = "Default";
 	public int    	 layerID = 0;
 	public int 	     id;
@@ -55,7 +55,7 @@ public class Layout : MonoBehaviour {
 			switch(tSD.type){
 
 			case "slot":
-				tSD.faceup = (slotsX[i].att ("faceup")=="1");
+				tSD.faceUp = (slotsX[i].att ("faceup")=="1");
 				tSD.id = int.Parse(slotsX[i].att ("id"));
 				if(slotsX[i].HasAtt("hiddenby")){
 					string[] hiding = slotsX[i].att("hiddenby").Split(',');
