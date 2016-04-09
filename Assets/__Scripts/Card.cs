@@ -33,7 +33,7 @@ public class Card : MonoBehaviour {
 
 	public void PopulateSpriteRenderers(){
 		if (spriteRenderers == null || spriteRenderers.Length == 0) {
-			spriteRenderers = GetComponentInChildren<SpriteRenderer>();		
+			spriteRenderers = GetComponentsInChildren<SpriteRenderer>();		
 		}
 	}
 
@@ -44,7 +44,27 @@ public class Card : MonoBehaviour {
 			tSR.sortingLayerName = tSLN;		
 		}
 	}
-	//!!!!!!!!!!!! start here !!!!!!!!!
+
+	public void SetSortOrder(int sOrd){
+		PopulateSpriteRenderers ();
+
+		foreach (SpriteRenderer tSR in spriteRenderers) {
+			if (tSR.gameObject == this.gameObject){
+				tSR.sortingOrder = sOrd;
+				continue;
+			}
+
+			switch (tSR.gameObject.name){
+			case "back":
+				tSR.sortingOrder = sOrd+2;
+				break;
+			case "face":
+			default:
+				tSR.sortingOrder = sOrd+1;
+				break;
+			}
+		}
+	}
 
 } // class Card
 
