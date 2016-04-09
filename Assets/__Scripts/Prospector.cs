@@ -43,6 +43,15 @@ public class Prospector : MonoBehaviour {
 		return(cd);
 	}
 
+	CardProspector FindCardByLayoutID(int layoutID){
+		foreach (CardProspector tCP in tableau) {
+			if(tCP.layoutID == layoutID){
+				return(tCP);
+			}
+		}
+		return(null);
+	}
+
 	void LayoutGame(){
 		if (layoutAnchor == null) {
 			GameObject tGO = new GameObject("_LayoutAnchor");
@@ -67,6 +76,14 @@ public class Prospector : MonoBehaviour {
 
 			tableau.Add(cp);
 		}
+
+		foreach (CardProspector tCP in tableau) {
+			foreach(int hid in tCP.slotDef.hiddenBy){
+				cp = FindCardByLayoutID(hid);
+				tCP.hiddenBy.Add(cp);
+			}
+		}
+
 		MoveToTarget (Draw ());
 		UpdateDrawPile ();
 	}
@@ -103,8 +120,10 @@ public class Prospector : MonoBehaviour {
 			if(!validMatch)return;
 			tableau.Remove(cd);
 			MoveToTarget(cd);
+			SetTableauFaces();
 			break;
 		}
+		CheckForGameOver ();
 	}
 
 	public bool AdjacentRank(CardProspector c0, CardProspector c1){
@@ -166,5 +185,42 @@ public class Prospector : MonoBehaviour {
 			cd.SetSortOrder(-10*i);
 		}
 
+	}
+
+	void SetTableauFaces(){
+		foreach (CardProspector cd in tableau) {
+			bool fup = true;
+			foreach(CardProspector cover in cd.hiddenBy){
+				if(cover.state == CardState.tableau){
+					fup = false;
+				}
+			}
+			cd.faceUp = fup;
+		}
+	}
+
+	void CheckForGameOver(){
+		if (tableau.Count == 0) {
+			GameOver(true);
+			return;
+		}
+		if (drawPile.Count > 0) {
+			return;
+		}
+		foreach (CardProspector cd in tableau) {
+			if(AdjacentRank(cd, target)){
+				return;
+			}
+		}
+		GameOver (false);
+	}
+
+	void GameOver(bool won){
+		if (won) {
+			print ("GAME OVER. you WIN!! :");
+		} else {
+			print ("GAME OVER. you Lost. :");
+		}
+		Application.LoadLevel("_Prospector_Scene_0");
 	}
 }
